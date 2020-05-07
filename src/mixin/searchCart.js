@@ -1,4 +1,4 @@
-
+export default{
   computed:{
     filteredCartItems:function(){
       return this.$store.state.mycart.filter((item)=>{
