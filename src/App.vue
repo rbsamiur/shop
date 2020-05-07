@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <router-link to="/shopitems"></router-link>
+    <router-link to="{name:'shopItem'}"></router-link>
     <router-view />
   </div>
 </template>
@@ -12,14 +12,9 @@ export default {
   name: 'app',
   components: {
     Header:header
-  },
-  data(){
-    return{
-    }
   }
 }
 </script>
 
 <style >
-
 </style>
