@@ -9,51 +9,36 @@
     </div>
     <h1>Check Your Cart</h1>
     <button type="button" v-on:click="checkCart" >Cart</button>
-    <cart :cart="this.mycart" v-show="'true'">
-    </cart>
    </div>
 </template>
 
 <script>
 import searchMixin from "../mixin/searchMixin";
-import cart from "../components/cart";
+
 export default {
-    name:'Cart',
-    components: {
-      cart:cart
-    },
+    name:'shopItem',
     data () {
       return {
-          items:[],
           search:"",
-          mycart:[]
+      }
+    },
+    computed:{
+      items(){
+        this.$store.state.products;
       }
     },
     methods:{
       addToCart(item){
-        this.mycart.push(item);
-        console.log(this.mycart);
+        this.$store.state.totalAmount+=item.price;
+        console.log(item.price);
+        console.log(this.$store.state.totalAmount);
+
+        this.$store.state.mycart.push(item);
+        console.log(this.$store.state.mycart);
       },
       checkCart(){
-        this.$router.replace({name:'Cart'});
+         this.$router.replace({name: "cart"});
       }
-    },
-    created() {
-      //do something after creating vue instance
-      this.items=[
-        {name:'banana',price:15},
-        {name:'mango',price:35},
-        {name:'peach',price:45},
-        {name:'daal',price:55},
-        {name:'vaat',price:75},
-        {name:'alu',price:85},
-        {name:'gom',price:95},
-        {name:'vutta',price:85},
-        {name:'shakalaka',price:75},
-        {name:'orrhe',price:65},
-        {name:'acccha',price:45},
-
-      ]
     },
     mixins: [searchMixin]
 

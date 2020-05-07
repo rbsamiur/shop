@@ -1,8 +1,9 @@
 <template>
   <nav>
     <ul>
-      <li><router-link to="/cart">Cart</router-link></li>
-      <li> <router-link to='/shopitems'>Shopping Item list</router-link></li>
+      <li v-if="this.$store.state.authenticated"><router-link to="/cart">Cart</router-link></li>
+      <li v-if="this.$store.state.authenticated"> <router-link to='/shopitems'>Shopping Item list</router-link></li>
+    <button type="button" v-if="this.$store.state.authenticated" v-on:click="logout()">logout</button>
     </ul>
   </nav>
 
@@ -12,6 +13,11 @@ export default {
   data(){
     return{
 
+    }
+  },methods: {
+    logout() {
+      this.$router.replace({ name: "login" });
+      this.$store.commit('setAuthentication',false);
     }
   }
 }

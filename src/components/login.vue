@@ -12,8 +12,8 @@
 
     </form>
   </div>
-</template>
 
+</template>
 <script>
 export default {
   name:'login',
@@ -27,10 +27,12 @@ export default {
   },
   methods:{
     enter:function(){
-      console.log(this.userInfo.userId);
-      console.log(this.userInfo.password);
+
       if (this.userInfo.userId=='admin'&& this.userInfo.password =='admin') {
+        this.$store.commit('setAuthentication',true);
         this.$router.replace({ name: "shopItem" });
+        console.log(this.userInfo.userId);
+        console.log(this.userInfo.password);
       }
 
     }

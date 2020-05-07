@@ -2,37 +2,51 @@
   <div >
     <h1>List of all Items in Cart</h1>
     <input type="text" v-model="search" placeholder="Search Items in Cart">
-    <div v-for="item in this.items">
+    <div v-for="item in filteredCartItems">
     <h2 >{{item.name}}</h2>
     <p>{{item.price}} tk/pc</p>
     <button type="button" v-on:click="removeFromCart(item)">Remove from cart</button>
     </div>
+    <h1>Check Your Cart</h1>
+    <button type="button" v-on:click="checkOutCart" >CheckOut</button>
   </div>
-</template>
 
+</template>
 <script>
-//import searchCart from "../mixin/searchCart";
+
+import searchCart from "../mixin/searchCart";
 
 export default {
   name:'Cart',
-  props:{
-    cart:Array
-  },
   data () {
-    return{
-      // cart:this.cart,
-      items:this.cart,
-      search:""
+    return {
+        search:"",
+    }
+  },
+  computed:{
+    items(){
+      this.$store.state.mycart;
+    },
+    price(){
+      this.priceSum=this.$store.state.totalAmount
+    // this.totalPrice=this.$store.state.totalAmount;
+        console.log(this.$store.state.totalAmount);
+         console.log(this.priceSum);
     }
   },
   methods:{
     removeFromCart(spitem){
-    console.log(this.items);
-     this.items.splice(this.items.indexOf(spitem), 1);
-      }
+      this.$store.state.totalAmount-=spitem.price;
+      console.log(this.$store.state.mycart);
+      this.$store.state.mycart.splice(this.$store.state.mycart.indexOf(spitem), 1);
+    },
+    checkOutCart(){
+      this.$router.replace({name: "checkout"});
 
- }//,
-  // mixins: [searchCart]
+    }
+
+  },
+  mixins:[searchCart]
 
 }
 </script>
